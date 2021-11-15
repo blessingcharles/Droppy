@@ -6,7 +6,11 @@ if __name__ == "__main__":
     (file , thread , output) = droopy_args()
 
     code = """if(true || false){
+        // hello
         a = 5
+        string = "hurreh"
+        /* this is 
+        fucking awesome */
         console.log("hi")
     }"""
 

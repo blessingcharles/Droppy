@@ -8,6 +8,7 @@ class Tokenizer:
     def __init__(self ,file_name : str , text : str):
 
         self.text : str = text
+        self.text_len : int = len(text)
         self.file_name : str = file_name
         self.curr_char = self.text[0]
         self.pos : int = 0
@@ -27,6 +28,7 @@ class Tokenizer:
             self.curr_char = self.text[self.pos]
 
     def build_operators(self):
+
         op : str = ""
         start_pos = self.pos
 
@@ -37,6 +39,7 @@ class Tokenizer:
         return Token(OPERATOR_TOKEN , op , self.lin_no , start_pos)
 
     def build_characters(self , prev_word : str = ""):
+
         word : str = prev_word 
         start_pos = self.pos
 
@@ -68,6 +71,51 @@ class Tokenizer:
         else:
             return Token(FLOAT_TOKEN, float(num),self.lin_no ,start_pos)
 
+    def parse_comments(self , starter : str):
+
+        comment = ""
+        start_pos = self.pos
+        start_line_no = self.lin_no
+
+        if starter == "//":
+            # single line comment
+            while  self.curr_char != None:
+                comment += self.curr_char
+                if self.text[self.pos+1] == "\n" : 
+                    break
+                self.move_forward()
+
+        else :
+            # multiline comment
+            c = ""
+            while self.curr_char != None:
+                comment += self.curr_char
+                self.move_forward()
+                c = self.curr_char + self.text[self.pos+1]
+                if c == "*/" :
+                    comment += "*/"
+                    self.move_forward()
+                    break 
+
+        self.move_forward()        
+        return Token(COMMENTS_TOKEN , comment  , start_line_no ,start_pos)
+
+    def build_strings(self):
+        
+        value = ""
+        start_pos = self.pos
+        start_line_no = self.lin_no
+
+        while self.curr_char != None :
+            value += self.curr_char
+            self.move_forward()
+            if self.curr_char in HARDCODED_STRINGS:
+                value += self.curr_char
+                self.move_forward()
+                break
+        
+        return Token(STRING_TOKEN , value  , start_line_no ,start_pos )
+
     def tokenize(self):
 
         droppy_tokens = []
@@ -75,8 +123,18 @@ class Tokenizer:
         while self.curr_char != None :
 
             if self.curr_char in SPACE_TOKEN:
+                #skip tabs and spaces
                 self.move_forward()
             
+            elif self.pos+1 < self.text_len and self.curr_char+self.text[self.pos+1] in COMMENTS_STARTS_WITH :
+                #comments
+                c = self.curr_char + self.text[self.pos+1]
+
+                droppy_tokens.append(self.parse_comments(c))
+            
+            elif self.curr_char in HARDCODED_STRINGS:
+                droppy_tokens.append(self.build_strings())
+
             elif self.curr_char in ASCII_TOKEN:
                 droppy_tokens.append(self.build_characters())
 
@@ -117,7 +175,7 @@ class Tokenizer:
                 self.move_forward()
 
             elif self.curr_char in BITWISE_OPERATORS:
-                
+
                 op = self.curr_char + self.text[self.pos+1]
                 if op in LOGICAL_OPERATORS:
                     # && and ||
@@ -138,3 +196,6 @@ class Tokenizer:
 
     def __repr__(self) -> str:
         return "Tokenize Class"
+    
+    def __str__(self) -> str:
+        return f"{Tokenizer.__dir__}"
