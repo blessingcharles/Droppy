@@ -83,8 +83,54 @@ class Tokenizer:
             elif self.curr_char in DIGITS_TOKEN:
                 droppy_tokens.append(self.build_numbers())
             
+            elif self.curr_char in ARITHMETIC_OPERATORS:
+
+                ##checking if it is a single equal or double equals 
+                if self.pos+1 < len(self.text) and self.text[self.pos+1] == "=" :
+                    t = Token(RELATIONAL_OPERATOR_TOKEN , "==" , self.lin_no , self.col)
+                    droppy_tokens.append(t)
+                    self.move_forward()
+                else :
+                    t = Token(ARITHMETIC_OPERATOR_TOKEN , self.curr_char , self.lin_no , self.col)
+                    droppy_tokens.append(t)
+
+                self.move_forward()
+
             elif self.curr_char in OPERATORS:
-                droppy_tokens.append(self.build_operators())
+
+                t = Token(OPERATOR_TOKEN , self.curr_char , self.lin_no , self.col)
+                droppy_tokens.append(t)
+                self.move_forward()
+
+            elif self.curr_char in RELATIONAL_OPERATOR:
+
+                op = self.curr_char + self.text[self.pos+1]
+                if op in RELATIONAL_OPERATOR:
+                    # >= , <= 
+                    t = Token(RELATIONAL_OPERATOR_TOKEN , op , self.lin_no , self.col)
+                    self.move_forward()
+                    droppy_tokens.append(t)
+                else:
+                    # > , <
+                    t = Token(RELATIONAL_OPERATOR_TOKEN , self.curr_char , self.lin_no , self.col)
+                
+                self.move_forward()
+
+            elif self.curr_char in BITWISE_OPERATORS:
+                
+                op = self.curr_char + self.text[self.pos+1]
+                if op in LOGICAL_OPERATORS:
+                    # && and ||
+                    t = Token(LOGICAL_OPERATORS_TOKEN , op , self.lin_no , self.col)
+                    self.move_forward()
+                    droppy_tokens.append(t)
+
+                else:
+                    t = Token(BITWISE_OPERATORS_TOKEN , self.curr_char , self.lin_no , self.col)
+                    droppy_tokens.append(t)
+                
+                self.move_forward()
+
             else:
                 self.move_forward()
 
