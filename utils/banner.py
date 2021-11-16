@@ -13,9 +13,9 @@ def banner(blue,reset):
 ''',end="")
     print(reset,end="")
 
-def print_seperator(color,reset):
+def print_seperator(color,reset,count:int = 100):
     print(color,end="")
-    print("-------------------------------------------------------------------------------------")
+    print("-"*count)
     print(reset,end="")
 
 #banner()
