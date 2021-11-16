@@ -3,7 +3,7 @@ from DroppyAnalyzer.Tokenizer import Tokenizer
 
 if __name__ == "__main__":
 
-    (file , thread , output) = droopy_args()
+    (file ,directory , thread , output) = droopy_args()
 
     with open("main.js") as f:
         code = f.read()
