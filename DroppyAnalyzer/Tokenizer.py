@@ -1,10 +1,14 @@
+from typing import List
 from .types.generals import *
 from .types.keywords import *
 from .types.operators import *
 from . import Token
 
 class Tokenizer:
-
+    """
+        tokenize keywords , identifier , hardcoded strings , operator with their column number
+        and line number 
+    """
     def __init__(self ,file_name : str , text : str):
 
         self.text : str = text
@@ -16,9 +20,17 @@ class Tokenizer:
         self.lin_no :int = 1
        
     def move_forward(self):
+        """
+            move forward each index by analyzing each character and incrementing line no and column number
+            @pos ---> store the curr pos
+            @col ----> store the column no
+            @lin_no ---> store the line no [increments when encounter new line]
+            @curr_char --> store the current character for analyzing
+        """
         #move the pos to next char
         self.pos += 1
         self.col += 1
+
         self.curr_char = self.text[self.pos] if self.pos < len(self.text) else None
 
         while self.curr_char == "\n":
@@ -39,7 +51,10 @@ class Tokenizer:
         return Token(OPERATOR_TOKEN , op , self.lin_no , start_pos)
 
     def build_characters(self , prev_word : str = "" , nested_func : bool = False):
-
+        """
+            if a alphanumeric charater is encounntered cluster them to form a KEYWORD , MODULES or IDENTIFIER
+            and if a module is encounter eg : document.innerHtml with the help of recursion it tokenize the function
+        """
         word : str = prev_word 
         start_pos = self.pos
 
@@ -62,6 +77,11 @@ class Tokenizer:
             return Token(IDENTIFIER_TOKEN , word , self.lin_no , start_pos)
 
     def build_numbers(self):
+        
+        """
+            tokenize numbers and floating points by calling move_forward function until a token that doesn't belongs
+            to a DIGITS_TOKEN encountered
+        """
 
         num = ""
         start_pos = self.pos
@@ -82,6 +102,10 @@ class Tokenizer:
 
     def parse_comments(self , starter : str):
 
+        """
+            // single comments finished tokenizing if new line encountered
+             /* */ multiline comments finished tokenizing until */ encounters
+        """
         comment = ""
         start_pos = self.pos
         start_line_no = self.lin_no
@@ -110,7 +134,11 @@ class Tokenizer:
         return Token(COMMENTS_TOKEN , comment  , start_line_no ,start_pos)
 
     def build_strings(self):
-        
+        """
+            build hardcoded strings eg : let c = "hello world" , console.log("th3h04x")
+            tokenize untill " ending quotation encountered 
+        """
+
         value = ""
         start_pos = self.pos
         start_line_no = self.lin_no
@@ -125,8 +153,12 @@ class Tokenizer:
         
         return Token(STRING_TOKEN , value  , start_line_no ,start_pos )
 
-    def tokenize(self):
-
+    def tokenize(self) -> List[Token]:
+        """
+            main function for lexical analyzing the javascript code and seperate it into tokens
+            each if else loop logical block to tokenize logical character by analyzing each character by character 
+            and moving forward
+        """
         droppy_tokens = []
         
         while self.curr_char != None :

@@ -1,4 +1,7 @@
 
+from typing import List, TypedDict
+
+
 class Token:
 
     def __init__(self, type : str, value :str ,lin_no , column_no : int , info : dict = {}):
@@ -17,3 +20,7 @@ class Token:
     def __str__(self) -> str:
 
         return f"[type : {self.type} , value : {self.value}]"
+
+
+class TokenizedDict(TypedDict):
+    filename : List[Token]

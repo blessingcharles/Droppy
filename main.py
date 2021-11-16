@@ -2,6 +2,7 @@ from pprint import pprint
 from typing import List
 from DroppyAnalyzer import Token
 from prettytable import PrettyTable
+from DroppyAnalyzer.Scanner import VulnScanner
 
 from utils.DroppyArgs import droopy_args
 from DroppyAnalyzer.Tokenizer import Tokenizer
@@ -18,14 +19,18 @@ class DroppyAnalyzer:
         self.thread = thread
         self.verbose = verbose
         self.file_results = {}
+        self.analyzed_files = {}
 
-    def analyze_file(self):
+    def analyze_file(self) -> None:
         
         with open(self.file_name) as f:
             contents = f.read()
 
+        #tokenize each file
         lex = Tokenizer(self.file_name , contents)
         result = lex.tokenize()
+        
+        self.analyzed_files[self.file_name] = result
         self.file_results[self.file_name] = self.pretty_print(result)
 
         print_seperator(red , reset)
@@ -34,14 +39,14 @@ class DroppyAnalyzer:
 
         if self.verbose : print(self.pretty_print(result))
 
-    def analyze_dir(self):
+    def analyze_dir(self) -> None:
 
         filenames = recursive_dir_search(self.directory ,extension = ".js")
         for f in filenames:
             self.file_name = f
             self.analyze_file()
     
-    def save_to_file(self):
+    def save_to_file(self) -> None:
         
         with open(f"{self.output_dir}/tokenized.log" , "w") as f:
             for key , value in self.file_results.items():
@@ -50,7 +55,7 @@ class DroppyAnalyzer:
                 f.write("\n\t\t"+"-"*50+"\n\n\n")
                 f.write(str(value))
 
-    def pretty_print(self,results  : List[Token]):
+    def pretty_print(self,results  : List[Token]) -> PrettyTable :
 
         table = PrettyTable(['TokenType', 'Value' , "Line No" , "Column No"])
         for r in results:
@@ -70,6 +75,7 @@ if __name__ == "__main__":
 
     analyzer = DroppyAnalyzer(file , directory , output , thread , verbose)
     
+    # tokenize both file or recursively in directory
     if file:
         analyzer.analyze_file()
     else:
@@ -77,3 +83,7 @@ if __name__ == "__main__":
 
     #log to output file
     if is_logoutput : analyzer.save_to_file()
+
+    v_scanner = VulnScanner(analyzer.analyzed_files)
+    v_scanner.scan()
+    
