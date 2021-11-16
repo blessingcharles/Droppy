@@ -2,6 +2,7 @@ from utils.DroppyArgs import droopy_args
 from DroppyAnalyzer.Tokenizer import Tokenizer
 from utils.banner import print_seperator
 from utils.colors import *
+from utils.utils import recursive_dir_search
 
 class DroppyAnalyzer:
 
@@ -18,13 +19,16 @@ class DroppyAnalyzer:
             contents = f.read()
         lex = Tokenizer(self.file_name , contents)
         results = lex.tokenize()
-        print(self.file_name)
         print_seperator(red , reset)
+        print(self.file_name)
         print(reset)
         self.pretty_print(results)
 
     def analyze_dir(self):
-        pass
+        filenames = recursive_dir_search(self.directory ,extension = ".js")
+        for f in filenames:
+            self.file_name = f
+            self.analyze_file()
     
     def pretty_print(self,results):
         for r in results:
