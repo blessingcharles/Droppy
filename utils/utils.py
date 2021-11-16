@@ -1,3 +1,4 @@
+from logging import error
 import os , glob
 import signal
 import sys
@@ -16,12 +17,13 @@ def dir_create(dirname):
     pwd = os.getcwd()
 
     new_dir_path = os.path.join(pwd,dirname)
-    
+    print(new_dir_path)
     if not os.path.exists(new_dir_path):
         try:
             os.mkdir(new_dir_path)
             return new_dir_path
-        except:
+        except error as e:
+            print(e)
             pass
 
     return new_dir_path

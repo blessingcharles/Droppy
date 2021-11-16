@@ -11,6 +11,9 @@ def droopy_args() -> tuple:
     parser.add_argument('-t','--thread',dest="thread" , help="provide number of threads [default 2]" , type=int , default=2)
     parser.add_argument('-o' , '--output' , dest="output" , help="provide a output folder name [default droppy_output]" , default="droppy_output")
     parser.add_argument('-d' , '--directory' , dest="directory" , help="provide a directory containing javascript files")
+    parser.add_argument("-v","--verbose",action="store_true",default=False,dest="verbose",help="set for verbose output")
+    parser.add_argument("-dso","--donot_save_output",action="store_false",default=True,dest="is_logoutput",help="to log output[default true]")
+
     args = parser.parse_args()
 
     if args.directory is None and args.file is None :
@@ -18,5 +21,5 @@ def droopy_args() -> tuple:
         print(reset)
         parser.print_help(sys.stderr)
         exit(-1)
-
-    return (args.file , args.directory , args.thread , args.output )
+   
+    return (args.file , args.directory , args.thread , args.output ,args.verbose , args.is_logoutput)
