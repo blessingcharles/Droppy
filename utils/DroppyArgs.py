@@ -1,6 +1,9 @@
 import argparse
 import sys
 
+from utils.banner import banner
+from utils.colors import *
+
 def droopy_args() -> tuple:
 
     parser = argparse.ArgumentParser(description="Droopy Automated Static Code Analysis")
@@ -11,6 +14,8 @@ def droopy_args() -> tuple:
     args = parser.parse_args()
 
     if args.directory is None and args.file is None :
+        banner(blue,reset)
+        print(reset)
         parser.print_help(sys.stderr)
         exit(-1)
 

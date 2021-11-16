@@ -9,10 +9,13 @@ def banner(blue,reset):
                         (   /  (           
                         (  /   )    
                         \(_)__))    
-                    THOMAS THE CAT 
-                                - th3h04x
+                      DROPPY SCANNER
 ''',end="")
     print(reset,end="")
 
+def print_seperator(color,reset):
+    print(color,end="")
+    print("-------------------------------------------------------------------------------------",end="")
+    print(reset,end="")
 
 #banner()
