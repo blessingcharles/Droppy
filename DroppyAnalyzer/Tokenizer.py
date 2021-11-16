@@ -38,7 +38,7 @@ class Tokenizer:
         
         return Token(OPERATOR_TOKEN , op , self.lin_no , start_pos)
 
-    def build_characters(self , prev_word : str = ""):
+    def build_characters(self , prev_word : str = "" , nested_func : bool = False):
 
         word : str = prev_word 
         start_pos = self.pos
@@ -47,7 +47,16 @@ class Tokenizer:
                 word += self.curr_char
                 self.move_forward()
         
-        if word in KEYWORDS:
+        if word in MODULES or nested_func == True:
+                #checking if a modular function call like console.log , document.innerHtml
+            if self.curr_char == ".":
+                word += self.curr_char
+                self.move_forward()
+                return self.build_characters(word , True)
+            else :
+                return Token(MODULES_TOKEN , word , self.lin_no , start_pos)
+
+        elif word in KEYWORDS:
             return Token(KEYWORDS_TOKEN , word , self.lin_no , start_pos)
         else :
             return Token(IDENTIFIER_TOKEN , word , self.lin_no , start_pos)
