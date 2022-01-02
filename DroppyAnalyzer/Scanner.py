@@ -1,47 +1,11 @@
 from typing import List
 from DroppyAnalyzer import Token, TokenizedDict
-from DroppyAnalyzer.types.generals import COMMENTS_TOKEN, MODULES_TOKEN
+from DroppyAnalyzer.types.generals import ARITHMETIC_OPERATOR_TOKEN, COMMENTS_TOKEN, MODULES_TOKEN
+from DroppyAnalyzer.types.keywords import DECLARATIONS, VAR_OPERATORS
 from utils.banner import print_seperator
 
 from utils.colors import *
-
-class Fuzzer:
-    def __init__(self , analyzed_files : TokenizedDict) -> None:
-        self.analyzed_files : dict = analyzed_files
-    
-    def fuzz(self):
-        #find comments token
-        for file_name , tokens_list in self.analyzed_files.items():
-            print_seperator(blue,reset)
-            print(f"{green}[+]Fuzzing file for comments : {file_name}{reset}\n")
-            flag = False
-
-            #iterating through each lexically analyzed tokens for comments
-            for token in tokens_list:
-                if token.type == COMMENTS_TOKEN :
-                    flag = True
-                    print(f"{red}[-] comments in [lin:col {token.lin_no}:{token.column_no}] {reset} : {token.value}")
-            if not flag :
-                print(f"{grey}[*] No Comments found {reset}")
-
-
-        #find log tokens
-        for file_name , tokens_list in self.analyzed_files.items():
-            print_seperator(blue,reset)
-            print(f"{green}[+]Fuzzing file for logs: {file_name}{reset}\n")
-            flag = False
-
-            #iterating through each lexically analyzed tokens for comments
-            for token in tokens_list:
-                if token.value == "console.log" :
-                    flag = True
-                    print(f"{red}[-] log in [lin:col {token.lin_no}:{token.column_no}] {reset} : {token.value}")
-            if not flag :
-                print(f"{grey}[*] No Comments found {reset}")
-
-    
-    def __repr__(self) -> str:
-        return "Find Comments and log in js code"
+from pprint import pprint
 
 class VulnScanner:
     def __init__(self , analyzed_files : TokenizedDict) -> None:

@@ -52,7 +52,7 @@ class Tokenizer:
 
     def build_characters(self , prev_word : str = "" , nested_func : bool = False):
         """
-            if a alphanumeric charater is encounntered cluster them to form a KEYWORD , MODULES or IDENTIFIER
+            if a alphanumeric charater is encountered cluster them to form a KEYWORD , MODULES or IDENTIFIER
             and if a module is encounter eg : document.innerHtml with the help of recursion it tokenize the function
         """
         word : str = prev_word 

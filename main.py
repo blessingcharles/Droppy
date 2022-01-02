@@ -2,7 +2,8 @@ from pprint import pprint
 from typing import List
 from DroppyAnalyzer import Token
 from prettytable import PrettyTable
-from DroppyAnalyzer.Scanner import Fuzzer, VulnScanner
+from DroppyAnalyzer.Scanner import VulnScanner
+from DroppyAnalyzer.Fuzzer import Fuzzer
 
 from utils.DroppyArgs import droopy_args
 from DroppyAnalyzer.Tokenizer import Tokenizer
@@ -88,4 +89,6 @@ if __name__ == "__main__":
     v_scanner.scan()
 
     fuzzer = Fuzzer(analyzer.analyzed_files)
-    fuzzer.fuzz()
+    # fuzzer.fuzz()
+
+    fuzzer.brief_detail()
