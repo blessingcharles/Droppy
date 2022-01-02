@@ -24,7 +24,6 @@ OPERATORS = {
     "}" : "CLOSING_CURLY_BRACE",
     "(" : "OPENING_PARATHESIS" ,
     ")" : "CLOSING_PARATHESIS" ,
-    ";" : "SEMI_COLON",
     "." : "DOT_OPERATOR",
     "_" : "UNDERSCORE",
 }
@@ -40,4 +39,9 @@ RELATIONAL_OPERATOR = {
 LOGICAL_OPERATORS = {
     "&&" : "DOUBLE_AND",
     "||" : "DOUBLE_OR"
+}
+
+SEPERATORS = {
+    ";" : "SEMICOLON",
+    "," : "COMMA"
 }

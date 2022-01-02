@@ -50,6 +50,17 @@ class Fuzzer:
             if not flag :
                 print(f"{grey}[*] No Comments found {reset}")
 
+    def _parse_arrays(self, tokens_list:TokenizedDict , idx : int = 0):
+        
+        cur_arr = "["
+
+        while tokens_list[idx].value != "]":
+            cur_arr += str(tokens_list[idx].value)
+            idx += 1
+
+        cur_arr += "]"
+        return cur_arr
+
     def _parse_all_variables(self):
 
         """
@@ -74,6 +85,7 @@ class Fuzzer:
                     initial_value = None
                     curr_value = ""
                     braces = ["(" , ")"]
+                    square_brackets = ["[" , "]"]
 
                     """
                         @if variable assignment  consists of combinatorial of other operators
@@ -83,35 +95,40 @@ class Fuzzer:
                     if tokens_list[cur_idx+2].value == "=":
                         ele_idx = cur_idx+3
                         
-                        #getting braces
-                        while tokens_list[ele_idx].value in braces:
-                            curr_value += tokens_list[ele_idx].value
-                            ele_idx += 1
-                        
-                        #getting first variable 
-                        curr_value += str(tokens_list[ele_idx].value)
-                        ele_idx += 1
+                        # array initialisation parsing
+                        if tokens_list[ele_idx].value in square_brackets:
+                            curr_value = self._parse_arrays(tokens_list , ele_idx+1)
 
-                        #getting operands and operators
-                        while tokens_list[ele_idx].value in VAR_OPERATORS:
-                            
-                            #operators
-                            curr_value += tokens_list[ele_idx].value
-                            ele_idx += 1
-
-                            #operands
-                            curr_value += str(tokens_list[ele_idx].value)
-                            ele_idx += 1
-
-                            #braces
+                        #normal expression parsing
+                        else :
+                            #getting braces
                             while tokens_list[ele_idx].value in braces:
                                 curr_value += tokens_list[ele_idx].value
                                 ele_idx += 1
+                            #getting first variable 
+                            curr_value += str(tokens_list[ele_idx].value)
+                            ele_idx += 1
 
-                    
-                    if curr_value:  initial_value = curr_value
+                            #getting operands and operators
+                            while tokens_list[ele_idx].value in VAR_OPERATORS + [","]:
+                                
+                                #operators
+                                curr_value += tokens_list[ele_idx].value
+                                ele_idx += 1
 
-                    details.append( self.__build_var_detail(token.value , variable.value ,initial_value) )
+                                #operands
+                                curr_value += str(tokens_list[ele_idx].value)
+                                ele_idx += 1
+
+                                #braces
+                                while tokens_list[ele_idx].value in braces:
+                                    curr_value += tokens_list[ele_idx].value
+                                    ele_idx += 1
+
+                        
+                        if curr_value:  initial_value = curr_value
+
+                        details.append( self.__build_var_detail(token.value , variable.value ,initial_value) )
             
 
             self.var_total_count += total_count
@@ -124,7 +141,7 @@ class Fuzzer:
             
 
         pprint(self.var_details)
-    
+
     def _parse_all_functions(self):
 
         """
@@ -144,7 +161,7 @@ class Fuzzer:
                     
                     #loop untill closing brace encountered to get all passing parameters
                     passed_args = []
-                    while tokens_list[t_idx].value is not ")":
+                    while tokens_list[t_idx].value != ")":
                         param = tokens_list[t_idx].value
                         passed_args.append(param)
                         t_idx += 1
@@ -164,7 +181,6 @@ class Fuzzer:
         """
         self._parse_all_variables()
         self._parse_all_functions()
-        pprint(self.func_details)
     
     def __build_var_detail(self , type : str , name : str , initial_value : str = None ):
         return {

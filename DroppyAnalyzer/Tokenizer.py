@@ -200,7 +200,12 @@ class Tokenizer:
                 t = Token(OPERATOR_TOKEN , self.curr_char , self.lin_no , self.col)
                 droppy_tokens.append(t)
                 self.move_forward()
-
+            
+            elif self.curr_char in SEPERATORS:
+                t = Token(SEPERATOR_TOKEN , self.curr_char , self.lin_no , self.col)
+                droppy_tokens.append(t)
+                self.move_forward()
+            
             elif self.curr_char in RELATIONAL_OPERATOR:
 
                 op = self.curr_char + self.text[self.pos+1]
