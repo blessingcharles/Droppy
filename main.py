@@ -34,9 +34,13 @@ if __name__ == "__main__":
     #log to output file
     if is_logoutput : analyzer.save_to_file()
 
-    v_scanner = VulnScanner(analyzer.analyzed_files , output , verbose)
+    #scanning the project
+    v_scanner = VulnScanner(analyzer.analyzed_files , output , csv_dir , verbose)
     v_scanner.scan()
+    v_scanner.save_to_file()
 
+
+    #Fuzzing the project
     fuzzer = Fuzzer(analyzer.analyzed_files , output ,csv_dir, verbose)
     fuzzer.fuzz()
     fuzzer.brief_detail()
@@ -44,7 +48,7 @@ if __name__ == "__main__":
     fuzzer.generate_total_results()
 
     # pp(analyzer.analyzed_files)
-    cfa = ControlFlow(analyzer.analyzed_files)
-
+    cfa = ControlFlow(analyzer.analyzed_files , output , csv_dir , verbose)
     cfa.find_dead_code()
-    
+    cfa.save_to_file()
+

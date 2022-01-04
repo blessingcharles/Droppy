@@ -1,0 +1,2 @@
+path,line number,feature,reference
+testingApp/app.js,16,in,{'details': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features'}

@@ -1,3 +1,4 @@
+import csv
 from typing import List
 from DroppyAnalyzer import Token, TokenizedDict
 from DroppyAnalyzer.types.generals import IDENTIFIER_TOKEN, KEYWORDS_TOKEN, MODULES_TOKEN, NEWLINE_TOKEN
@@ -8,16 +9,25 @@ from utils.colors import *
 from pprint import pprint
 
 class VulnScanner:
-    def __init__(self , analyzed_files : TokenizedDict , output_dir : str , verbose : bool = False) -> None:
+    def __init__(self , analyzed_files : TokenizedDict , output_dir : str ,csv_dir : str ,verbose : bool = False) -> None:
         
         self.analyzed_files : dict = analyzed_files
         self.verbose = verbose
-        
+        self.output_dir = output_dir
+        self.csv_dir = csv_dir
+
+        self.deprecated_output_filename = f"{self.csv_dir}/scanner_deprecated.csv"
+        self.xss_output_filename = f"{self.csv_dir}/scanner_xss.csv"
+        self.total_scan_filename = f"{self.csv_dir}/total_scanner.csv"
+
         self.js_sources = []
         self.js_sinks = []
 
         self.deprecated_features_details = {}
+        self.xss_details = {}
+
         self.deprecated_features_count = 0
+        self.xss_count = 0
 
         self.get_details_from_brain()
 
@@ -38,7 +48,7 @@ class VulnScanner:
 
             for token in tokens_list:
                 if token.type in [MODULES_TOKEN , KEYWORDS_TOKEN] and token.value in DEPRECATED_FEATURES:
-                    details.append(self.__build_deprecated_feature(token.value , DEPRECATED_FEATURES[token.value]))                    
+                    details.append(self.__build_deprecated_feature(token.value ,DEPRECATED_FEATURES[token.value] , token.lin_no))                    
                     count += 1
 
             self.deprecated_features_count += count
@@ -56,22 +66,37 @@ class VulnScanner:
             print(f"{green}[+]Analyzing file : {file_name}{reset}\n")
             flag = False
 
+            details = []
+            sources_count = 0
+            sinks_count = 0
+
             #iterating through each lexically analyzed tokens
             for token in tokens_list:
                 if token.type == MODULES_TOKEN :
                     if token.value in self.js_sources:
+                        sources_count += 1
                         flag = True
+                        details.append(self.__build_xss_features(token.value ,"source" ,token.lin_no))
                         print(f"{red}[-] possible source [lin:col {token.lin_no}:{token.column_no}] {reset} : {token.value}")
+
                     if token.value in self.js_sinks:
+                        sinks_count += 1
                         flag = True
+                        details.append(self.__build_xss_features(token.value ,"sink" ,token.lin_no))
+
                         print(f"{red}[-] possible sinks [lin:col {token.lin_no}:{token.column_no}] {reset} : {token.value}")
+            
             if not flag :
                 print(f"{grey}[*] No Source or Sink found {reset}")
 
-            
+            self.xss_details[file_name] = {
+                "total count" : sources_count + sinks_count,
+                "sources count":sources_count,
+                "sinks count":sinks_count,
+                "source and sinks":details
+            }
     
     def get_details_from_brain(self) -> None:
-        
         with open("DroopyBrain/domxss_sinks.txt") as f :
             for line in f.readlines():
                 self.js_sinks.append(line.strip())
@@ -80,12 +105,55 @@ class VulnScanner:
             for line in f.readlines():
                 self.js_sources.append(line.strip())
     
+    def save_to_file(self):
+        # save deprecated feature
+        with open(self.deprecated_output_filename , "w") as f:
+            writer = csv.writer(f)
 
-    def __build_deprecated_feature(self , name : str , reference : str) -> None:
+            headers = ["path" , "line number" , "feature" , "reference"]
+            writer.writerow(headers)
+
+            for file_name , results in self.deprecated_features_details.items():
+                for detail in results["deprecated features list"]:
+                    writer.writerow([file_name , detail["line number"] , detail["name"] , detail["reference"]])
+
+        #save xss sources and sinks
+
+        with open(self.xss_output_filename , "w") as f:
+            writer = csv.writer(f)
+            headers = ["path" , "line number" , "type" , "function"]
+            writer.writerow(headers)
+
+            for file_name , results in self.xss_details.items():
+                for detail in results["source and sinks"]:
+                    writer.writerow([file_name , detail["line number"] , detail["type"] , detail["function"]])
+
+
+        #generate total scanner report
+        with open(self.total_scan_filename , "w") as f:
+            writer = csv.writer(f)
+            headers = ["path" , "source sinks count" , "deprecated feature count"]
+            writer.writerow(headers)
+
+            for file_name , results in self.xss_details.items():
+                deprecated_feature_count = self.deprecated_features_details[file_name]["count"]
+                ss_count = results["total count"]
+
+                writer.writerow([file_name , ss_count , deprecated_feature_count])
+
+    def __build_deprecated_feature(self , name : str , reference : str , lin_no : int) :
         
         return {
             "name":name ,
-            "reference":reference
+            "reference":reference , 
+            "line number":lin_no
+        }
+
+    def __build_xss_features(self , func_name :str ,type :str , lin_no : int):
+        return {
+            "function": func_name ,
+            "type": type ,
+            "line number":lin_no
         }
 
     def __repr__(self) -> str:
@@ -96,9 +164,12 @@ class VulnScanner:
 
 class ControlFlow:
     
-    def __init__(self ,  analyzed_files : TokenizedDict) -> None:
+    def __init__(self ,  analyzed_files : TokenizedDict , output : str , csv_dir : str , verbose : bool = False) -> None:
 
         self.analyzed_files : dict = analyzed_files
+        self.output = output
+        self.csv_dir = csv_dir
+        self.controlflow_filename = f"{self.csv_dir}/controlflow.csv"
 
         self.project_dead_codes = {}
         self.ifi_statements : List = ["if" , "else if"]
@@ -146,6 +217,20 @@ class ControlFlow:
 
         pprint(self.project_dead_codes)
 
+    def save_to_file(self):
+        with open(self.controlflow_filename , "w") as f:
+            writer = csv.writer(f)
+
+            headers = ["path" , "line number" , "type" , "issue" , "details"]
+
+            writer.writerow(headers)
+
+            for file_name , results in self.project_dead_codes.items():
+                for detail in results:
+                    # if detail.has_key("function name"):
+                    #     detail["details"]["function name"] = detail["function name"]
+
+                    writer.writerow([file_name , detail["details"]["line no"] ,detail["type"] , detail["issue"] , detail["details"] ])
 
     def _check_conditional_statement_dead(self , idx : int , tokens_list : TokenizedDict):
         

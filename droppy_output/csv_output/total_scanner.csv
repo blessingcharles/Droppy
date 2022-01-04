@@ -1,0 +1,3 @@
+path,source sinks count,deprecated feature count
+testingApp/app.js,1,1
+testingApp/test.js,1,0
