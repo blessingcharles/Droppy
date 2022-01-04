@@ -1,6 +1,6 @@
 from typing import List
 from DroppyAnalyzer import Token, TokenizedDict
-from DroppyAnalyzer.types.generals import KEYWORDS_TOKEN, MODULES_TOKEN, NEWLINE_TOKEN
+from DroppyAnalyzer.types.generals import IDENTIFIER_TOKEN, KEYWORDS_TOKEN, MODULES_TOKEN, NEWLINE_TOKEN
 from utils.banner import print_seperator
 from DroopyBrain.deprecated import DEPRECATED_FEATURES
 
@@ -117,18 +117,25 @@ class ControlFlow:
                      look_ahead = tokens_list[idx+1]
 
                 if token.value == "if":
-                    self._check_conditional_statement_dead(idx , tokens_list)
+                    
+                    result = self._check_conditional_statement_dead(idx , tokens_list)
+
+                    if result[0]:
+                        dead_codes.append(self.__build_conditonal_dead_code_structure(result[1]))
 
                 elif look_ahead and str(token.value) + " " + str(look_ahead.value) == "else if":
-                    self._check_conditional_statement_dead(idx+1 , tokens_list)
+                    
+                    result = self._check_conditional_statement_dead(idx+1 , tokens_list)
+                    
+                    if result[0]:
+                        dead_codes.append(self.__build_conditonal_dead_code_structure(result[1]))
 
                 elif token.value == "function":
                     result = self._check_functional_statement_dead(idx , tokens_list)
 
                     if result[0]:
                         #contains dead code
-                        # print(result)
-                        dead_codes.append(self.__build_dead_code_structure(tokens_list[idx+1].value , result[1]))
+                        dead_codes.append(self.__build_func_dead_code_structure(tokens_list[idx+1].value , result[1]))
 
 
             self.project_dead_codes[file_name] = dead_codes
@@ -143,15 +150,35 @@ class ControlFlow:
         """
             parse the conditional statements and evaluate for dead code
             eg: 
-                if(True || False) || if(False) ===> then the conditional statements are dead
+                if(True || False) || if(1+2 < 10) ===> then the conditional statements are dead
 
         """
         start_idx = idx+2  #skipping if( and else if( tokens 
 
         conditional_tokens = self.__get_conditional_tokens(start_idx , tokens_list)
         
-        print(conditional_tokens)
-        
+        if self.__check_for_dynamic_variables(conditional_tokens):
+            #contains dynamic variables if present skip it
+            return [False , {}]
+
+        cond_str = ""
+
+        for token in conditional_tokens:
+            cond_str += str(token.value)
+
+
+
+        #replacing boolean with 0 and 1
+        fixed_cond_str = self.__fix_string(cond_str)
+
+        result = eval(fixed_cond_str)
+
+        return [True ,  {
+            "condition": cond_str ,
+            "parsed result":result ,
+            "line no": tokens_list[idx].lin_no
+        }] 
+
 
     def _check_functional_statement_dead(self , idx : int , tokens_list : TokenizedDict):
         """
@@ -231,7 +258,7 @@ class ControlFlow:
     def __get_conditional_tokens(self , idx : int , tokens_list : TokenizedDict):
 
         condition_tokens = []
-        while tokens_list[idx].value != "(":
+        while tokens_list[idx].value != ")":
             
             condition_tokens.append(tokens_list[idx])
             idx += 1
@@ -239,10 +266,48 @@ class ControlFlow:
         return condition_tokens
 
 
-    def __build_dead_code_structure(self,func_name : str , details : dict):
+    def __build_func_dead_code_structure(self,func_name : str , details : dict):
 
         return {
+            "type" : "Function",
+            "issue":"dead code after return" ,
             "function name" : func_name ,
             "details" : details
         }
 
+    def __build_conditonal_dead_code_structure(self ,details : dict ):
+
+        return {
+            "type" : "Conditional Statements",
+            "issue" : "static evaluation of conditions" ,
+            "details" : details
+        }
+
+    def __check_for_dynamic_variables(self , condition_tokens : TokenizedDict) -> bool:
+        """
+            check if a dynamic variabes present in a given token list
+
+            return True if present else False
+        """
+    
+        boolean_statements = ["true" , "false"]
+
+        for token in condition_tokens:
+            if token.type == IDENTIFIER_TOKEN and token.value not in boolean_statements:
+                return True
+
+        return False
+
+
+    def __fix_string(self , cond_str : str) -> str :
+        fixed_cond_str = ""
+
+        for word in cond_str.split():
+            if word == "true":
+                fixed_cond_str += f" 1 "
+            elif word == "false":
+                fixed_cond_str += f" 0 "
+            else :
+                fixed_cond_str += word
+
+        return fixed_cond_str
