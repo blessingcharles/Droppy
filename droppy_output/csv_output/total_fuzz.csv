@@ -1,0 +1,3 @@
+path,variables count,constants count,functions count,comments count,log count
+testingApp/app.js,5,1,2,1,3
+testingApp/test.js,3,0,1,0,1

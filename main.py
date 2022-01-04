@@ -1,5 +1,8 @@
 from pprint import pp, pprint
 from typing import List
+from rich.traceback import install
+
+install(show_locals=True)
 
 from DroppyAnalyzer import Token
 from prettytable import PrettyTable
@@ -16,7 +19,9 @@ from utils.utils import dir_create, recursive_dir_search
 if __name__ == "__main__":
 
     (file ,directory , thread , output , verbose , is_logoutput) = droopy_args()
+    csv_dir = f"{output}/csv_output"
     dir_create(output)
+    dir_create(csv_dir)
 
     analyzer = DroppyAnalyzer(file , directory , output , thread , verbose)
     
@@ -29,16 +34,17 @@ if __name__ == "__main__":
     #log to output file
     if is_logoutput : analyzer.save_to_file()
 
-    # v_scanner = VulnScanner(analyzer.analyzed_files)
-    # v_scanner.scan()
+    v_scanner = VulnScanner(analyzer.analyzed_files , output , verbose)
+    v_scanner.scan()
 
-    # fuzzer = Fuzzer(analyzer.analyzed_files)
-    # # fuzzer.fuzz()
-
-    # fuzzer.brief_detail()
-
+    fuzzer = Fuzzer(analyzer.analyzed_files , output ,csv_dir, verbose)
+    fuzzer.fuzz()
+    fuzzer.brief_detail()
+    fuzzer.save_to_file()
+    fuzzer.generate_total_results()
 
     # pp(analyzer.analyzed_files)
     cfa = ControlFlow(analyzer.analyzed_files)
 
     cfa.find_dead_code()
+    

@@ -1,0 +1,6 @@
+path,line number,error type,value
+testingApp/app.js,2,Comments present,/* this is comment is for debugging */
+testingApp/app.js,8,log statement present,"""hello everyone"""
+testingApp/app.js,13,log statement present,"""hurrah !"""
+testingApp/app.js,17,log statement present,h
+testingApp/test.js,3,log statement present,"""hello"""

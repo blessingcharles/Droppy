@@ -1,0 +1,4 @@
+path,line number,function name,arguments list,arguments count
+testingApp/app.js,1,newworld,"['a', 'b']",3
+testingApp/app.js,12,foo,['a'],1
+testingApp/test.js,1,sayHello,['x'],1

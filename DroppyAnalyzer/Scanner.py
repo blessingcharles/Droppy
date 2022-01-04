@@ -8,9 +8,11 @@ from utils.colors import *
 from pprint import pprint
 
 class VulnScanner:
-    def __init__(self , analyzed_files : TokenizedDict) -> None:
+    def __init__(self , analyzed_files : TokenizedDict , output_dir : str , verbose : bool = False) -> None:
         
         self.analyzed_files : dict = analyzed_files
+        self.verbose = verbose
+        
         self.js_sources = []
         self.js_sinks = []
 

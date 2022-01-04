@@ -1,0 +1,8 @@
+path,line number,declaration type,variable name,initial value
+testingApp/app.js,3,let,x,a+b
+testingApp/app.js,4,const,b,22/7
+testingApp/app.js,5,var,hello,"""fuck off"""
+testingApp/app.js,15,var,a,"[1,4,5]"
+testingApp/app.js,20,var,a,document.getElementById
+testingApp/test.js,8,let,x,5
+testingApp/test.js,10,var,a,x+3
