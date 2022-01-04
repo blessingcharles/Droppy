@@ -1,5 +1,9 @@
 KEYWORDS = [
-    "if" , "else" , "else if" , "function" , "const" , "var" , "let" , "true" , "false" , "return" , "in"
+    'if', 'in', 'do', 'var', 'for', 'new', 'try', 'let', 'this', 'else',
+     'case', 'void', 'with', 'enum', 'while', 'break', 'catch', 'throw',
+     'const', 'yield', 'class', 'super', 'return', 'typeof', 'delete',
+     'switch', 'export', 'import', 'default', 'finally', 'extends', 'function',
+     'continue', 'debugger', 'instanceof'
 ]
 
 DECLARATIONS = [
@@ -7,7 +11,3 @@ DECLARATIONS = [
 ]
 
 VAR_OPERATORS = ["+" , "-" , "*" , "/" , "&" , "|" , "^"]
-
-MODULES = [
-    "console" , "document"
-]

@@ -1,9 +1,9 @@
-from pprint import pprint
+from pprint import pp, pprint
 from typing import List
 
 from DroppyAnalyzer import Token
 from prettytable import PrettyTable
-from DroppyAnalyzer.Scanner import VulnScanner
+from DroppyAnalyzer.Scanner import ControlFlow, VulnScanner
 from DroppyAnalyzer.Fuzzer import Fuzzer
 from DroppyAnalyzer.Analyzer import DroppyAnalyzer
 
@@ -29,13 +29,16 @@ if __name__ == "__main__":
     #log to output file
     if is_logoutput : analyzer.save_to_file()
 
-    v_scanner = VulnScanner(analyzer.analyzed_files)
-    v_scanner.scan()
+    # v_scanner = VulnScanner(analyzer.analyzed_files)
+    # v_scanner.scan()
 
-    fuzzer = Fuzzer(analyzer.analyzed_files)
-    # fuzzer.fuzz()
+    # fuzzer = Fuzzer(analyzer.analyzed_files)
+    # # fuzzer.fuzz()
 
-    fuzzer.brief_detail()
+    # fuzzer.brief_detail()
 
 
-    
+    # pp(analyzer.analyzed_files)
+    cfa = ControlFlow(analyzer.analyzed_files)
+
+    cfa.find_dead_code()

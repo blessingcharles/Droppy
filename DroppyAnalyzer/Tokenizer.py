@@ -28,16 +28,29 @@ class Tokenizer:
             @curr_char --> store the current character for analyzing
         """
         #move the pos to next char
+        prev_char = ""
+        if self.pos > 0: 
+            prev_char = self.text[self.pos-1]
+
         self.pos += 1
         self.col += 1
 
-        self.curr_char = self.text[self.pos] if self.pos < len(self.text) else None
+        if prev_char == "\n": self.col = 0
 
-        while self.curr_char == "\n":
-            self.col = 0
-            self.lin_no += 1
-            self.pos += 1
-            self.curr_char = self.text[self.pos]
+        self.curr_char = self.text[self.pos] if self.pos < len(self.text) else None
+ 
+ 
+        
+        # while self.curr_char == "\n":
+        #     # if prev_char not in "1234567890" and prev_char not in "+-=*/":
+        #     #     print(prev_char)
+        #     self.droppy_tokens.append(Token(NEWLINE_TOKEN , "\\n" , self.lin_no , 0))
+        #     #     pass
+
+        #     self.col = 0
+        #     self.lin_no += 1
+        #     self.pos += 1
+        #     self.curr_char = self.text[self.pos]
 
     def build_operators(self):
 
@@ -62,17 +75,23 @@ class Tokenizer:
                 word += self.curr_char
                 self.move_forward()
         
-        if word in MODULES or nested_func == True:
-                #checking if a modular function call like console.log , document.innerHtml
-            if self.curr_char == ".":
-                word += self.curr_char
-                self.move_forward()
-                return self.build_characters(word , True)
-            else :
-                return Token(MODULES_TOKEN , word , self.lin_no , start_pos)
+        # if word in MODULES or nested_func == True:
+        #         #checking if a modular function call like console.log , document.innerHtml
+        #     if self.curr_char == ".":
+        #         word += self.curr_char
+        #         self.move_forward()
+        #         return self.build_characters(word , True)
+        #     else :
+        #         return Token(MODULES_TOKEN , word , self.lin_no , start_pos)
 
-        elif word in KEYWORDS:
+        if word in KEYWORDS:
             return Token(KEYWORDS_TOKEN , word , self.lin_no , start_pos)
+        elif self.curr_char == ".":
+            word += self.curr_char
+            self.move_forward()
+            return self.build_characters(word,True)
+        elif nested_func:
+            return Token(MODULES_TOKEN , word , self.lin_no , start_pos)
         else :
             return Token(IDENTIFIER_TOKEN , word , self.lin_no , start_pos)
 
@@ -159,51 +178,57 @@ class Tokenizer:
             each if else loop logical block to tokenize logical character by analyzing each character by character 
             and moving forward
         """
-        droppy_tokens = []
+        self.droppy_tokens = []
         
         while self.curr_char != None :
 
             if self.curr_char in SPACE_TOKEN:
                 #skip tabs and spaces
                 self.move_forward()
-            
+
+            elif self.curr_char in "\n":
+                self.droppy_tokens.append(Token(NEWLINE_TOKEN , "\\n" , self.lin_no , 0))
+                self.lin_no += 1
+                self.move_forward()
+                self.col = 0
+
             elif self.pos+1 < self.text_len and self.curr_char+self.text[self.pos+1] in COMMENTS_STARTS_WITH :
                 #comments
                 c = self.curr_char + self.text[self.pos+1]
 
-                droppy_tokens.append(self.parse_comments(c))
+                self.droppy_tokens.append(self.parse_comments(c))
             
             elif self.curr_char in HARDCODED_STRINGS:
-                droppy_tokens.append(self.build_strings())
+                self.droppy_tokens.append(self.build_strings())
 
             elif self.curr_char in ASCII_TOKEN:
-                droppy_tokens.append(self.build_characters())
+                self.droppy_tokens.append(self.build_characters())
 
             elif self.curr_char in DIGITS_TOKEN:
-                droppy_tokens.append(self.build_numbers())
+                self.droppy_tokens.append(self.build_numbers())
             
             elif self.curr_char in ARITHMETIC_OPERATORS:
 
                 ##checking if it is a single equal or double equals 
                 if self.pos+1 < len(self.text) and self.text[self.pos+1] == "=" :
                     t = Token(RELATIONAL_OPERATOR_TOKEN , "==" , self.lin_no , self.col)
-                    droppy_tokens.append(t)
+                    self.droppy_tokens.append(t)
                     self.move_forward()
                 else :
                     t = Token(ARITHMETIC_OPERATOR_TOKEN , self.curr_char , self.lin_no , self.col)
-                    droppy_tokens.append(t)
+                    self.droppy_tokens.append(t)
 
                 self.move_forward()
 
             elif self.curr_char in OPERATORS:
 
                 t = Token(OPERATOR_TOKEN , self.curr_char , self.lin_no , self.col)
-                droppy_tokens.append(t)
+                self.droppy_tokens.append(t)
                 self.move_forward()
             
             elif self.curr_char in SEPERATORS:
                 t = Token(SEPERATOR_TOKEN , self.curr_char , self.lin_no , self.col)
-                droppy_tokens.append(t)
+                self.droppy_tokens.append(t)
                 self.move_forward()
             
             elif self.curr_char in RELATIONAL_OPERATOR:
@@ -213,7 +238,7 @@ class Tokenizer:
                     # >= , <= 
                     t = Token(RELATIONAL_OPERATOR_TOKEN , op , self.lin_no , self.col)
                     self.move_forward()
-                    droppy_tokens.append(t)
+                    self.droppy_tokens.append(t)
                 else:
                     # > , <
                     t = Token(RELATIONAL_OPERATOR_TOKEN , self.curr_char , self.lin_no , self.col)
@@ -227,18 +252,18 @@ class Tokenizer:
                     # && and ||
                     t = Token(LOGICAL_OPERATORS_TOKEN , op , self.lin_no , self.col)
                     self.move_forward()
-                    droppy_tokens.append(t)
+                    self.droppy_tokens.append(t)
 
                 else:
                     t = Token(BITWISE_OPERATORS_TOKEN , self.curr_char , self.lin_no , self.col)
-                    droppy_tokens.append(t)
+                    self.droppy_tokens.append(t)
                 
                 self.move_forward()
 
             else:
                 self.move_forward()
 
-        return droppy_tokens
+        return self.droppy_tokens
 
     def __repr__(self) -> str:
         return "Tokenize Class"

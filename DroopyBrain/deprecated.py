@@ -1,7 +1,6 @@
 DEPRECATED_FEATURES = {
     "in":{
-        "details":"use 'of' instead of 'in' \
-                  Reference : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features"
+        "details":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features"
                    
     },
     "compile":{
