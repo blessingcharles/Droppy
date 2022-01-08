@@ -1,5 +1,5 @@
 from logging import error
-import os , glob
+import os , glob , csv
 import signal
 import sys
 
@@ -27,6 +27,16 @@ def dir_create(dirname):
             pass
 
     return new_dir_path
+
+def dict_to_csv_writer(dictionary : dict , file_path : str):
+    headers = ["name" , "count"]
+
+    with open(file_path , "w") as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
+
+        for key , value in dictionary.items():
+            writer.writerow([key,value])
 
 
 def signal_handler(sig, frame):

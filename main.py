@@ -19,7 +19,7 @@ from utils.DroppyArgs import droopy_args
 from DroppyAnalyzer.Tokenizer import Tokenizer
 from utils.banner import print_seperator
 from utils.colors import *
-from utils.utils import dir_create, recursive_dir_search
+from utils.utils import dict_to_csv_writer, dir_create, recursive_dir_search
 
 if __name__ == "__main__":
 
@@ -42,10 +42,16 @@ if __name__ == "__main__":
     #log to output file
     if is_logoutput : analyzer.save_to_file()
 
+    count_table = {}
+
+
     #scanning the project
     v_scanner = VulnScanner(analyzer.analyzed_files , output , csv_dir , verbose)
     v_scanner.scan()
     v_scanner.save_to_file()
+
+    count_table["sinks_sources_count"] = v_scanner.xss_count
+    count_table["deprecated_features_count"] = v_scanner.deprecated_features_count
 
     #Fuzzing the project
     fuzzer = Fuzzer(analyzer.analyzed_files , output ,csv_dir, verbose)
@@ -53,6 +59,12 @@ if __name__ == "__main__":
     fuzzer.brief_detail()
     fuzzer.save_to_file()
     fuzzer.generate_total_results()
+
+    count_table["variables_count"] = fuzzer.var_total_count
+    count_table["functions_count"] = fuzzer.func_total_count
+    count_table["constants_count"] = fuzzer.var_constants_count
+
+    dict_to_csv_writer(count_table , f"{csv_dir}/Results.csv")
 
     # pp(analyzer.analyzed_files)
     cfa = ControlFlow(analyzer.analyzed_files , output , csv_dir , verbose)

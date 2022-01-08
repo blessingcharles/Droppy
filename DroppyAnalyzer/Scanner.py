@@ -57,8 +57,6 @@ class VulnScanner:
                                 "deprecated features list":details    
             } 
 
-        pprint(self.deprecated_features_details)
-
     def scan_xss(self):
 
         for file_name , tokens_list in self.analyzed_files.items():
@@ -88,7 +86,8 @@ class VulnScanner:
             
             if not flag :
                 print(f"{grey}[*] No Source or Sink found {reset}")
-
+            
+            self.xss_count += sources_count + sinks_count
             self.xss_details[file_name] = {
                 "total count" : sources_count + sinks_count,
                 "sources count":sources_count,
@@ -214,9 +213,6 @@ class ControlFlow:
             self.project_dead_codes[file_name] = dead_codes
 
         
-
-        pprint(self.project_dead_codes)
-
     def save_to_file(self):
         with open(self.controlflow_filename , "w") as f:
             writer = csv.writer(f)

@@ -14,6 +14,7 @@ class HtmlGenerator:
         self.js_template_path = "DroopyBrain/js_template.js"
 
     def generate(self):
+
         self.files = recursive_dir_search(self.path , extension=".csv")
 
         html_doc = ''''''
