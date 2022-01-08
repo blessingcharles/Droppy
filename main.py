@@ -23,7 +23,10 @@ from utils.utils import dir_create, recursive_dir_search
 
 if __name__ == "__main__":
 
-    (file ,directory , thread , output , verbose , is_logoutput) = droopy_args()
+    (file ,directory , thread 
+        , output , verbose , is_logoutput , 
+        generate_json , generate_xml) = droopy_args()
+
     csv_dir = f"{output}/csv_output"
     dir_create(output)
     dir_create(csv_dir)
@@ -57,10 +60,13 @@ if __name__ == "__main__":
     cfa.save_to_file()
 
     html_gen = HtmlGenerator(output , csv_dir)
-
     html_gen.generate()
     
     gen = GeneralOutputGenerator(output,csv_dir)
-    gen.generate_xml()
+    
+    if generate_json:
+        gen.generate_json()
+    if generate_xml:
+        gen.generate_xml()
 
     webbrowser.open(html_gen.html_output)
