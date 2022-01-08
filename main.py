@@ -1,6 +1,11 @@
 from pprint import pp, pprint
 from typing import List
 from rich.traceback import install
+import webbrowser
+from OutputGenerator.general_generator import GeneralOutputGenerator
+
+
+from OutputGenerator.html_generator import HtmlGenerator
 
 install(show_locals=True)
 
@@ -39,7 +44,6 @@ if __name__ == "__main__":
     v_scanner.scan()
     v_scanner.save_to_file()
 
-
     #Fuzzing the project
     fuzzer = Fuzzer(analyzer.analyzed_files , output ,csv_dir, verbose)
     fuzzer.fuzz()
@@ -52,3 +56,11 @@ if __name__ == "__main__":
     cfa.find_dead_code()
     cfa.save_to_file()
 
+    html_gen = HtmlGenerator(output , csv_dir)
+
+    html_gen.generate()
+    
+    gen = GeneralOutputGenerator(output,csv_dir)
+    gen.generate_xml()
+
+    webbrowser.open(html_gen.html_output)

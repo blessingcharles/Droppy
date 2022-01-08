@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <path>testingApp/app.js</path>
+    <line_number>2</line_number>
+    <error_type>Comments present</error_type>
+    <value>/* this is comment is for debugging */</value>
+  </row>
+  <row>
+    <index>1</index>
+    <path>testingApp/app.js</path>
+    <line_number>8</line_number>
+    <error_type>log statement present</error_type>
+    <value>"hello everyone"</value>
+  </row>
+  <row>
+    <index>2</index>
+    <path>testingApp/app.js</path>
+    <line_number>13</line_number>
+    <error_type>log statement present</error_type>
+    <value>"hurrah !"</value>
+  </row>
+  <row>
+    <index>3</index>
+    <path>testingApp/app.js</path>
+    <line_number>17</line_number>
+    <error_type>log statement present</error_type>
+    <value>h</value>
+  </row>
+  <row>
+    <index>4</index>
+    <path>testingApp/test.js</path>
+    <line_number>3</line_number>
+    <error_type>log statement present</error_type>
+    <value>"hello"</value>
+  </row>
+</data>

@@ -1,3 +1,3 @@
-path,line number,type,issue,details
+path,line_number,type,issue,details
 testingApp/test.js,7,Function,dead code after return,"{'line no': 7, 'column no': 7, 'extra statements': 'let x = 5 \n\nvar a = x + 3 \n\n'}"
 testingApp/test.js,2,Conditional Statements,static evaluation of conditions,"{'condition': '1+3>=5', 'parsed result': False, 'line no': 2}"

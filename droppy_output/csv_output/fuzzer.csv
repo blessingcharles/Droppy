@@ -1,4 +1,4 @@
-path,line number,error type,value
+path,line_number,error_type,value
 testingApp/app.js,2,Comments present,/* this is comment is for debugging */
 testingApp/app.js,8,log statement present,"""hello everyone"""
 testingApp/app.js,13,log statement present,"""hurrah !"""

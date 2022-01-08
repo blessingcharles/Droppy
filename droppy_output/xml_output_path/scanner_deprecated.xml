@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <path>testingApp/app.js</path>
+    <line_number>16</line_number>
+    <feature>in</feature>
+    <reference>{'details': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features'}</reference>
+  </row>
+</data>

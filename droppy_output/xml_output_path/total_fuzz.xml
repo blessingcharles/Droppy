@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <path>testingApp/app.js</path>
+    <variables_count>5</variables_count>
+    <constants_count>1</constants_count>
+    <functions_count>2</functions_count>
+    <comments_count>1</comments_count>
+    <log_count>3</log_count>
+  </row>
+  <row>
+    <index>1</index>
+    <path>testingApp/test.js</path>
+    <variables_count>3</variables_count>
+    <constants_count>0</constants_count>
+    <functions_count>1</functions_count>
+    <comments_count>0</comments_count>
+    <log_count>1</log_count>
+  </row>
+</data>

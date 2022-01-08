@@ -110,7 +110,7 @@ class VulnScanner:
         with open(self.deprecated_output_filename , "w") as f:
             writer = csv.writer(f)
 
-            headers = ["path" , "line number" , "feature" , "reference"]
+            headers = ["path" , "line_number" , "feature" , "reference"]
             writer.writerow(headers)
 
             for file_name , results in self.deprecated_features_details.items():
@@ -121,7 +121,7 @@ class VulnScanner:
 
         with open(self.xss_output_filename , "w") as f:
             writer = csv.writer(f)
-            headers = ["path" , "line number" , "type" , "function"]
+            headers = ["path" , "line_number" , "type" , "function"]
             writer.writerow(headers)
 
             for file_name , results in self.xss_details.items():
@@ -132,7 +132,7 @@ class VulnScanner:
         #generate total scanner report
         with open(self.total_scan_filename , "w") as f:
             writer = csv.writer(f)
-            headers = ["path" , "source sinks count" , "deprecated feature count"]
+            headers = ["path" , "source_sinks_count" , "deprecated_feature_count"]
             writer.writerow(headers)
 
             for file_name , results in self.xss_details.items():
@@ -221,7 +221,7 @@ class ControlFlow:
         with open(self.controlflow_filename , "w") as f:
             writer = csv.writer(f)
 
-            headers = ["path" , "line number" , "type" , "issue" , "details"]
+            headers = ["path" , "line_number" , "type" , "issue" , "details"]
 
             writer.writerow(headers)
 

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <path>testingApp/app.js</path>
+    <line_number>1</line_number>
+    <function_name>newworld</function_name>
+    <arguments_list>['a', 'b']</arguments_list>
+    <arguments_count>3</arguments_count>
+  </row>
+  <row>
+    <index>1</index>
+    <path>testingApp/app.js</path>
+    <line_number>12</line_number>
+    <function_name>foo</function_name>
+    <arguments_list>['a']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+  <row>
+    <index>2</index>
+    <path>testingApp/test.js</path>
+    <line_number>1</line_number>
+    <function_name>sayHello</function_name>
+    <arguments_list>['x']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+</data>

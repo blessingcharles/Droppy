@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <path>testingApp/app.js</path>
+    <line_number>7</line_number>
+    <type>sink</type>
+    <function>document.evaluate</function>
+  </row>
+  <row>
+    <index>1</index>
+    <path>testingApp/test.js</path>
+    <line_number>4</line_number>
+    <type>sink</type>
+    <function>document.write</function>
+  </row>
+</data>

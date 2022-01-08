@@ -98,7 +98,7 @@ class Fuzzer:
     def save_to_file(self):
 
         #saving fuzzed details
-        headers = ["path" , "line number" , "error type" , "value"]
+        headers = ["path" , "line_number" , "error_type" , "value"]
         with open(self.output_fuzz_file_name , "w") as f:
             writer = csv.writer(f)
 
@@ -116,7 +116,7 @@ class Fuzzer:
 
         #saving parsed variables declaration with init values
 
-        headers = ["path" ,"line number" , "declaration type" , "variable name" , "initial value"]
+        headers = ["path" ,"line_number" , "declaration_type" , "variable_name" , "initial_value"]
 
         with open(self.output_variable_file , "w") as f :
             writer = csv.writer(f)
@@ -128,7 +128,7 @@ class Fuzzer:
 
     
         #saving parsed function details 
-        headers = ["path" , "line number" ,"function name" , "arguments list" ,"arguments count"]
+        headers = ["path" , "line_number" ,"function_name" , "arguments_list" ,"arguments_count"]
 
         with open(self.output_func_file_name , "w") as f:
             writer = csv.writer(f)
@@ -143,8 +143,8 @@ class Fuzzer:
 
     def generate_total_results(self):
 
-        headers = ["path" , "variables count" , "constants count" , "functions count" 
-                                                        , "comments count" , "log count"]
+        headers = ["path" , "variables_count" , "constants_count" , "functions_count" 
+                                                        , "comments_count" , "log_count"]
 
         with open(self.output_fuzztotal_file_name , "w") as f:
             writer = csv.writer(f)

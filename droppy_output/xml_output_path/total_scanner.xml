@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <path>testingApp/app.js</path>
+    <source_sinks_count>1</source_sinks_count>
+    <deprecated_feature_count>1</deprecated_feature_count>
+  </row>
+  <row>
+    <index>1</index>
+    <path>testingApp/test.js</path>
+    <source_sinks_count>1</source_sinks_count>
+    <deprecated_feature_count>0</deprecated_feature_count>
+  </row>
+</data>
