@@ -2,6 +2,11 @@
 
 ![Droopy image](https://github.com/blessingcharles/Droppy/blob/Main/droppy.jpg?raw=true)
 
+## Flow Diagram
+
+![Flow Diagram](https://github.com/blessingcharles/Droppy/blob/Main/block.png?raw=true)
+
+
 ### Tokenizer :​
 A tokenizer class is completely build from scratch for javascript . Lexical
 analysis is done by this class , by iterateting over each character by
