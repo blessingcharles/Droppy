@@ -139,7 +139,7 @@ class Fuzzer:
                 for detail in results["details"]:
                     args = list(filter(lambda a: a != ",", detail["arguments list"]))
 
-                    writer.writerow([file_name , detail["line no"] , detail["function name"] ,args, detail["arguments count"] ])
+                    writer.writerow([file_name , detail["line no"] , detail["function name"] ,args, len(args) ])
 
     def generate_total_results(self):
 
@@ -282,16 +282,14 @@ class Fuzzer:
             self.func_total_count += total_count 
             self.func_details[file_name] = {
                 "total count":total_count ,
-                "details":details
-            }
+                "details":details}
 
     def __build_var_detail(self , type : str , name : str ,line_no : int, initial_value : str = None ):
         return {
                 "declaration type":type ,
                 "name":name , 
                 "value":initial_value ,
-                "line no": line_no
-                }
+                "line no": line_no}
 
     def __build_func_detail(self , name : str , passed_args : List[str] , line_no : int):
         return {

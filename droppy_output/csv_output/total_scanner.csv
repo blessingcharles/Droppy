@@ -1,3 +1,8 @@
 path,source_sinks_count,deprecated_feature_count
 testingApp/app.js,1,1
 testingApp/test.js,1,0
+testingApp/sellers/seller.js,1,0
+testingApp/customer/user.js,0,0
+testingApp/customer/cart.js,0,0
+testingApp/products/send_notification.js,0,2
+testingApp/products/product.js,0,0

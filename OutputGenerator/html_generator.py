@@ -57,4 +57,5 @@ class HtmlGenerator:
         with open(self.html_output , "w") as f:
             f.write(html_doc)
 
-            
+    def __repr__(self) -> str:
+        return f"html output generator to {self.html_output}"

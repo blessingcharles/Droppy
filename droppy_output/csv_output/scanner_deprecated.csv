@@ -1,2 +1,4 @@
 path,line_number,feature,reference
 testingApp/app.js,16,in,{'details': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features'}
+testingApp/products/send_notification.js,8,getYear,{'details': 'Reference : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features'}
+testingApp/products/send_notification.js,23,unwatch,{'details': 'Reference : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features'}

@@ -14,4 +14,11 @@
     <type>sink</type>
     <function>document.write</function>
   </row>
+  <row>
+    <index>2</index>
+    <path>testingApp/sellers/seller.js</path>
+    <line_number>8</line_number>
+    <type>sink</type>
+    <function>JSON.parse</function>
+  </row>
 </data>

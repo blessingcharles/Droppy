@@ -3,10 +3,7 @@ from typing import List
 from rich.traceback import install
 import webbrowser
 from OutputGenerator.general_generator import GeneralOutputGenerator
-
-
 from OutputGenerator.html_generator import HtmlGenerator
-
 install(show_locals=True)
 
 from DroppyAnalyzer import Token
@@ -41,9 +38,7 @@ if __name__ == "__main__":
 
     #log to output file
     if is_logoutput : analyzer.save_to_file()
-
     count_table = {}
-
 
     #scanning the project
     v_scanner = VulnScanner(analyzer.analyzed_files , output , csv_dir , verbose)
@@ -66,16 +61,13 @@ if __name__ == "__main__":
 
     dict_to_csv_writer(count_table , f"{csv_dir}/Results.csv")
 
-    # pp(analyzer.analyzed_files)
     cfa = ControlFlow(analyzer.analyzed_files , output , csv_dir , verbose)
     cfa.find_dead_code()
     cfa.save_to_file()
-
     html_gen = HtmlGenerator(output , csv_dir)
     html_gen.generate()
     
     gen = GeneralOutputGenerator(output,csv_dir)
-    
     if generate_json:
         gen.generate_json()
     if generate_xml:

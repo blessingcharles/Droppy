@@ -1,3 +1,4 @@
 path,line_number,type,function
 testingApp/app.js,7,sink,document.evaluate
 testingApp/test.js,4,sink,document.write
+testingApp/sellers/seller.js,8,sink,JSON.parse

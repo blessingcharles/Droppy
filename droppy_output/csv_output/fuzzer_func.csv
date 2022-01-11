@@ -1,4 +1,16 @@
 path,line_number,function_name,arguments_list,arguments_count
-testingApp/app.js,1,newworld,"['a', 'b']",3
+testingApp/app.js,1,newworld,"['a', 'b']",2
 testingApp/app.js,12,foo,['a'],1
 testingApp/test.js,1,sayHello,['x'],1
+testingApp/sellers/seller.js,3,become_seller,['user_id'],1
+testingApp/sellers/seller.js,13,is_seller,['id'],1
+testingApp/customer/user.js,4,login,"['username', 'password']",2
+testingApp/customer/user.js,20,signup,"['email', 'username', 'password']",3
+testingApp/customer/cart.js,3,buy,['cart_id'],1
+testingApp/customer/cart.js,19,remove_item_from_cart,['product_id'],1
+testingApp/customer/cart.js,34,add_item_to_cart,['product_id'],1
+testingApp/products/send_notification.js,3,send_notification,['details'],1
+testingApp/products/send_notification.js,21,notification_cancel,['notify'],1
+testingApp/products/product.js,3,create_product,"['product_name', 'type', 'price']",3
+testingApp/products/product.js,13,reduce_product_price,"['product_name', 'price']",2
+testingApp/products/product.js,28,block_product,['product_name'],1

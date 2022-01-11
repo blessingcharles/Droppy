@@ -47,7 +47,7 @@ class VulnScanner:
             count = 0
 
             for token in tokens_list:
-                if token.type in [MODULES_TOKEN , KEYWORDS_TOKEN] and token.value in DEPRECATED_FEATURES:
+                if token.type in [MODULES_TOKEN , KEYWORDS_TOKEN , IDENTIFIER_TOKEN] and token.value in DEPRECATED_FEATURES:
                     details.append(self.__build_deprecated_feature(token.value ,DEPRECATED_FEATURES[token.value] , token.lin_no))                    
                     count += 1
 
@@ -357,7 +357,6 @@ class ControlFlow:
             "function name" : func_name ,
             "details" : details
         }
-
     def __build_conditonal_dead_code_structure(self ,details : dict ):
 
         return {
@@ -372,15 +371,12 @@ class ControlFlow:
 
             return True if present else False
         """
-    
         boolean_statements = ["true" , "false"]
 
         for token in condition_tokens:
             if token.type == IDENTIFIER_TOKEN and token.value not in boolean_statements:
                 return True
-
         return False
-
 
     def __fix_string(self , cond_str : str) -> str :
         fixed_cond_str = ""
@@ -392,5 +388,4 @@ class ControlFlow:
                 fixed_cond_str += f" 0 "
             else :
                 fixed_cond_str += word
-
         return fixed_cond_str

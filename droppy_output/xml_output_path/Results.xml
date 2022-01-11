@@ -3,26 +3,26 @@
   <row>
     <index>0</index>
     <name>sinks_sources_count</name>
-    <count>2</count>
+    <count>3</count>
   </row>
   <row>
     <index>1</index>
     <name>deprecated_features_count</name>
-    <count>1</count>
+    <count>3</count>
   </row>
   <row>
     <index>2</index>
     <name>variables_count</name>
-    <count>8</count>
+    <count>34</count>
   </row>
   <row>
     <index>3</index>
     <name>functions_count</name>
-    <count>3</count>
+    <count>15</count>
   </row>
   <row>
     <index>4</index>
     <name>constants_count</name>
-    <count>1</count>
+    <count>15</count>
   </row>
 </data>

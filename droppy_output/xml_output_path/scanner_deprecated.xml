@@ -7,4 +7,18 @@
     <feature>in</feature>
     <reference>{'details': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features'}</reference>
   </row>
+  <row>
+    <index>1</index>
+    <path>testingApp/products/send_notification.js</path>
+    <line_number>8</line_number>
+    <feature>getYear</feature>
+    <reference>{'details': 'Reference : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features'}</reference>
+  </row>
+  <row>
+    <index>2</index>
+    <path>testingApp/products/send_notification.js</path>
+    <line_number>23</line_number>
+    <feature>unwatch</feature>
+    <reference>{'details': 'Reference : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features'}</reference>
+  </row>
 </data>

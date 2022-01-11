@@ -6,7 +6,7 @@
     <line_number>1</line_number>
     <function_name>newworld</function_name>
     <arguments_list>['a', 'b']</arguments_list>
-    <arguments_count>3</arguments_count>
+    <arguments_count>2</arguments_count>
   </row>
   <row>
     <index>1</index>
@@ -22,6 +22,102 @@
     <line_number>1</line_number>
     <function_name>sayHello</function_name>
     <arguments_list>['x']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+  <row>
+    <index>3</index>
+    <path>testingApp/sellers/seller.js</path>
+    <line_number>3</line_number>
+    <function_name>become_seller</function_name>
+    <arguments_list>['user_id']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+  <row>
+    <index>4</index>
+    <path>testingApp/sellers/seller.js</path>
+    <line_number>13</line_number>
+    <function_name>is_seller</function_name>
+    <arguments_list>['id']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+  <row>
+    <index>5</index>
+    <path>testingApp/customer/user.js</path>
+    <line_number>4</line_number>
+    <function_name>login</function_name>
+    <arguments_list>['username', 'password']</arguments_list>
+    <arguments_count>2</arguments_count>
+  </row>
+  <row>
+    <index>6</index>
+    <path>testingApp/customer/user.js</path>
+    <line_number>20</line_number>
+    <function_name>signup</function_name>
+    <arguments_list>['email', 'username', 'password']</arguments_list>
+    <arguments_count>3</arguments_count>
+  </row>
+  <row>
+    <index>7</index>
+    <path>testingApp/customer/cart.js</path>
+    <line_number>3</line_number>
+    <function_name>buy</function_name>
+    <arguments_list>['cart_id']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+  <row>
+    <index>8</index>
+    <path>testingApp/customer/cart.js</path>
+    <line_number>19</line_number>
+    <function_name>remove_item_from_cart</function_name>
+    <arguments_list>['product_id']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+  <row>
+    <index>9</index>
+    <path>testingApp/customer/cart.js</path>
+    <line_number>34</line_number>
+    <function_name>add_item_to_cart</function_name>
+    <arguments_list>['product_id']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+  <row>
+    <index>10</index>
+    <path>testingApp/products/send_notification.js</path>
+    <line_number>3</line_number>
+    <function_name>send_notification</function_name>
+    <arguments_list>['details']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+  <row>
+    <index>11</index>
+    <path>testingApp/products/send_notification.js</path>
+    <line_number>21</line_number>
+    <function_name>notification_cancel</function_name>
+    <arguments_list>['notify']</arguments_list>
+    <arguments_count>1</arguments_count>
+  </row>
+  <row>
+    <index>12</index>
+    <path>testingApp/products/product.js</path>
+    <line_number>3</line_number>
+    <function_name>create_product</function_name>
+    <arguments_list>['product_name', 'type', 'price']</arguments_list>
+    <arguments_count>3</arguments_count>
+  </row>
+  <row>
+    <index>13</index>
+    <path>testingApp/products/product.js</path>
+    <line_number>13</line_number>
+    <function_name>reduce_product_price</function_name>
+    <arguments_list>['product_name', 'price']</arguments_list>
+    <arguments_count>2</arguments_count>
+  </row>
+  <row>
+    <index>14</index>
+    <path>testingApp/products/product.js</path>
+    <line_number>28</line_number>
+    <function_name>block_product</function_name>
+    <arguments_list>['product_name']</arguments_list>
     <arguments_count>1</arguments_count>
   </row>
 </data>

@@ -12,4 +12,34 @@
     <source_sinks_count>1</source_sinks_count>
     <deprecated_feature_count>0</deprecated_feature_count>
   </row>
+  <row>
+    <index>2</index>
+    <path>testingApp/sellers/seller.js</path>
+    <source_sinks_count>1</source_sinks_count>
+    <deprecated_feature_count>0</deprecated_feature_count>
+  </row>
+  <row>
+    <index>3</index>
+    <path>testingApp/customer/user.js</path>
+    <source_sinks_count>0</source_sinks_count>
+    <deprecated_feature_count>0</deprecated_feature_count>
+  </row>
+  <row>
+    <index>4</index>
+    <path>testingApp/customer/cart.js</path>
+    <source_sinks_count>0</source_sinks_count>
+    <deprecated_feature_count>0</deprecated_feature_count>
+  </row>
+  <row>
+    <index>5</index>
+    <path>testingApp/products/send_notification.js</path>
+    <source_sinks_count>0</source_sinks_count>
+    <deprecated_feature_count>2</deprecated_feature_count>
+  </row>
+  <row>
+    <index>6</index>
+    <path>testingApp/products/product.js</path>
+    <source_sinks_count>0</source_sinks_count>
+    <deprecated_feature_count>0</deprecated_feature_count>
+  </row>
 </data>

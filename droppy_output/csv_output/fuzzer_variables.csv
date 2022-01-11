@@ -1,8 +1,34 @@
 path,line_number,declaration_type,variable_name,initial_value
 testingApp/app.js,3,let,x,a+b
 testingApp/app.js,4,const,b,22/7
-testingApp/app.js,5,var,hello,"""fuck off"""
+testingApp/app.js,5,var,hello,"""this is an ecommerce site"""
 testingApp/app.js,15,var,a,"[1,4,5]"
 testingApp/app.js,20,var,a,document.getElementById
 testingApp/test.js,8,let,x,5
 testingApp/test.js,10,var,a,x+3
+testingApp/sellers/seller.js,1,const,db,require
+testingApp/sellers/seller.js,4,const,seller,db.create_seller
+testingApp/sellers/seller.js,8,let,r,JSON.parse
+testingApp/sellers/seller.js,14,let,details,db.seller
+testingApp/customer/user.js,1,const,app,require
+testingApp/customer/user.js,2,const,db,require
+testingApp/customer/user.js,10,var,results,db.find
+testingApp/customer/user.js,25,const,results,db.find
+testingApp/customer/cart.js,1,const,db,require
+testingApp/customer/cart.js,4,let,token,get_user_token
+testingApp/customer/cart.js,7,const,buy_results,buy
+testingApp/customer/cart.js,9,let,bill,generate_bill
+testingApp/customer/cart.js,20,let,user_id,get_user_token
+testingApp/customer/cart.js,21,let,results_remove_products,db.remove_products
+testingApp/customer/cart.js,36,let,user_id,get_user_token
+testingApp/customer/cart.js,37,let,results_add_products,db.add_products
+testingApp/products/send_notification.js,1,const,db,require
+testingApp/products/send_notification.js,5,const,n,db.findall
+testingApp/products/send_notification.js,7,let,note,[]
+testingApp/products/send_notification.js,8,let,y,getYear
+testingApp/products/product.js,1,const,db,require
+testingApp/products/product.js,4,const,p,db.create_product
+testingApp/products/product.js,15,const,product,db.find_product
+testingApp/products/product.js,20,const,results,db.change
+testingApp/products/product.js,29,let,block,db.find_product
+testingApp/products/product.js,31,const,results,db.remove_product

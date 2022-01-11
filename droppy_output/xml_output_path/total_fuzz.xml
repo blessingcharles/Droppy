@@ -18,4 +18,49 @@
     <comments_count>0</comments_count>
     <log_count>1</log_count>
   </row>
+  <row>
+    <index>2</index>
+    <path>testingApp/sellers/seller.js</path>
+    <variables_count>4</variables_count>
+    <constants_count>2</constants_count>
+    <functions_count>2</functions_count>
+    <comments_count>0</comments_count>
+    <log_count>0</log_count>
+  </row>
+  <row>
+    <index>3</index>
+    <path>testingApp/customer/user.js</path>
+    <variables_count>4</variables_count>
+    <constants_count>3</constants_count>
+    <functions_count>2</functions_count>
+    <comments_count>0</comments_count>
+    <log_count>0</log_count>
+  </row>
+  <row>
+    <index>4</index>
+    <path>testingApp/customer/cart.js</path>
+    <variables_count>8</variables_count>
+    <constants_count>2</constants_count>
+    <functions_count>3</functions_count>
+    <comments_count>3</comments_count>
+    <log_count>0</log_count>
+  </row>
+  <row>
+    <index>5</index>
+    <path>testingApp/products/send_notification.js</path>
+    <variables_count>4</variables_count>
+    <constants_count>2</constants_count>
+    <functions_count>2</functions_count>
+    <comments_count>1</comments_count>
+    <log_count>0</log_count>
+  </row>
+  <row>
+    <index>6</index>
+    <path>testingApp/products/product.js</path>
+    <variables_count>6</variables_count>
+    <constants_count>5</constants_count>
+    <functions_count>3</functions_count>
+    <comments_count>0</comments_count>
+    <log_count>0</log_count>
+  </row>
 </data>

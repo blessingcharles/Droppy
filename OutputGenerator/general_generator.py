@@ -42,3 +42,7 @@ class GeneralOutputGenerator:
             with open(f"{self.xml_output_path}/{file_name}" , "w") as f:
                 f.write(xml_data)
 
+    def generate_all(self):
+        self.generate_json()
+        self.generate_xml()
+        

@@ -9,27 +9,55 @@
   </row>
   <row>
     <index>1</index>
-    <path>testingApp/app.js</path>
-    <line_number>8</line_number>
-    <error_type>log statement present</error_type>
-    <value>"hello everyone"</value>
+    <path>testingApp/customer/cart.js</path>
+    <line_number>6</line_number>
+    <error_type>Comments present</error_type>
+    <value>// buy with user token and return bill</value>
   </row>
   <row>
     <index>2</index>
-    <path>testingApp/app.js</path>
-    <line_number>13</line_number>
-    <error_type>log statement present</error_type>
-    <value>"hurrah !"</value>
+    <path>testingApp/customer/cart.js</path>
+    <line_number>27</line_number>
+    <error_type>Comments present</error_type>
+    <value>//product is removed from database</value>
   </row>
   <row>
     <index>3</index>
+    <path>testingApp/customer/cart.js</path>
+    <line_number>43</line_number>
+    <error_type>Comments present</error_type>
+    <value>//product is removed from database</value>
+  </row>
+  <row>
+    <index>4</index>
+    <path>testingApp/products/send_notification.js</path>
+    <line_number>24</line_number>
+    <error_type>Comments present</error_type>
+    <value>//iterating through notification list to cancel for some users</value>
+  </row>
+  <row>
+    <index>5</index>
+    <path>testingApp/app.js</path>
+    <line_number>8</line_number>
+    <error_type>log statement present</error_type>
+    <value>"debugging comment"</value>
+  </row>
+  <row>
+    <index>6</index>
+    <path>testingApp/app.js</path>
+    <line_number>13</line_number>
+    <error_type>log statement present</error_type>
+    <value>"foo function"</value>
+  </row>
+  <row>
+    <index>7</index>
     <path>testingApp/app.js</path>
     <line_number>17</line_number>
     <error_type>log statement present</error_type>
     <value>h</value>
   </row>
   <row>
-    <index>4</index>
+    <index>8</index>
     <path>testingApp/test.js</path>
     <line_number>3</line_number>
     <error_type>log statement present</error_type>

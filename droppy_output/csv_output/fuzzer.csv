@@ -1,6 +1,10 @@
 path,line_number,error_type,value
 testingApp/app.js,2,Comments present,/* this is comment is for debugging */
-testingApp/app.js,8,log statement present,"""hello everyone"""
-testingApp/app.js,13,log statement present,"""hurrah !"""
+testingApp/customer/cart.js,6,Comments present,// buy with user token and return bill
+testingApp/customer/cart.js,27,Comments present,//product is removed from database
+testingApp/customer/cart.js,43,Comments present,//product is removed from database
+testingApp/products/send_notification.js,24,Comments present,//iterating through notification list to cancel for some users
+testingApp/app.js,8,log statement present,"""debugging comment"""
+testingApp/app.js,13,log statement present,"""foo function"""
 testingApp/app.js,17,log statement present,h
 testingApp/test.js,3,log statement present,"""hello"""
